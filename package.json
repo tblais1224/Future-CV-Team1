@@ -1,0 +1,19 @@
+{
+  "name": "futurecv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tblais1224/Future-CV-Team1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tblais1224/Future-CV-Team1/issues"
+  },
+  "homepage": "https://github.com/tblais1224/Future-CV-Team1#readme"
+}
