@@ -1,8 +1,13 @@
-- To push from my branch
-  - git push origin martinez
-  - merge my branch into test branch
+///////////////////
+// Installations //
+///////////////////
 
-* Installed
-* express
-* passport
-* nodemon as dependency -D
+- Express
+- Mongoose
+- bcrypt
+- body-parser
+- concurrently
+- jsonwebtoken
+- passport & passport-js
+- validator
+- nodemon as dependency -D
