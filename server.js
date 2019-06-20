@@ -13,7 +13,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 //might throw error, if it does put in routes
 app.use(bodyParser.json());
+
+//passport middleware
 app.use(passport.initialize());
+//passport config
+require("./config/passport")(passport);
 
 // DB Config
 const db = require("./config/keys").mongoURI

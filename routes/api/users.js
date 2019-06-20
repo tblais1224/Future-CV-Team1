@@ -89,9 +89,14 @@ router.post("/login", (req, res) => {
                     payload,
                     keys.secret,
                     //one hour token auth time 
-                    {expiresIn: 3600},
+                    {
+                        expiresIn: 3600
+                    },
                     //callback
-                    (err, token) => res.json({success: true, token: "Bearer " + token})
+                    (err, token) => res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    })
                 )
             } else {
                 errors.password = "Password is incorrect!"
@@ -100,5 +105,21 @@ router.post("/login", (req, res) => {
         })
     })
 })
+
+//@route GET   api/user/current
+//@desc   Return the current logged in user
+// @access     Private
+router.get("/current",
+    //auth token will be in header
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+        res.json({
+            id: req.user.id,
+            name: req.user.name,
+            email: req.user.email,
+            type: req.user.type
+        })
+    }
+)
 
 module.exports = router
