@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Form Validations</title>
+        <h1>Home Page</h1>
+        <script type="text/javascript">
+        /**/
+        function validate()
+        {
+            var uname = document.getElementById("uname");
+            var password = document.getElementById("pass"); 
+            
+            if(uname.value.trim()=="")
+            {
+                //alert("Blank Username");
+                uname.style.border = "solid 3px red";
+                document.getElementById("lbluser")
+                .style.visibility="visible";
+                return false;
+            }
+            else if(password.value.trim()=="")
+            {
+                //alert("Blank Password");
+                password.style.border = "solid 3px red";
+                document.getElementById("userpass")
+                .style.visibility="visible";
+                return false;
+            }
+            else if(password.value.trim().length<5)
+            {
+                //alert("Password too short");
+                password.style.border = "solid 3px red";
+                document.getElementById("tooshort")
+                .style.visibility="visible";
+                return false;
+            }
+            else 
+            {
+                return true;
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <form onsubmit="return validate()" action="message.html">
+            <input id="uname" placeholder="Username" type="text"/>
+            <label id="lbluser" style="color: red; visibility: hidden;">Invalid</label>
+            <br><br>
+
+            <input id="pass" placeholder="Password" type="password"/>
+            <label id="userpass" style="color: red; visibility: hidden;">Invalid</label>
+            <label id="tooshort" style="color: red; visibility: hidden;">Password must be 
+            1 atleast 6 characters</label> 
+
+            <br><br>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
