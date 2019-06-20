@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 // Require routes
-// const users = require("./routes/api/users");
+const users = require("./routes/api/users");
 // const profiles = require("./routes/api/profiles");
 // const resumes = require("./routes/api/resumes");
 const app = express();
@@ -25,7 +25,7 @@ mongoose
   .catch(err => console.log(err));
 
 // API routes
-// app.use("/api/user", users);
+app.use("/api/user", users);
 // app.use("/api/profile", profiles);
 // app.use("/api/resume", resumes);
 
