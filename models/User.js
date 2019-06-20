@@ -1,7 +1,10 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> test
 const UserSchema = new Schema({
     name: {
         type: String,
