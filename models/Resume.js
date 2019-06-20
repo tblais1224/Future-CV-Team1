@@ -28,12 +28,11 @@ const ResumeSchema = new Schema({
         required: true
     },
     zipCode: {
-        type: String,
+        type: Number,
         required: true
     },
     cellphone: {
-        type: String,
-        required: true
+        type: String
     },
     //maybe use the user email?
     email: {
