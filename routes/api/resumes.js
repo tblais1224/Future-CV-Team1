@@ -9,7 +9,6 @@ mongoose.set("useFindAndModify", false);
 const validateResumeInput = require("../../validations/resume");
 
 const Resume = require("../../models/Resume");
-const Profile = require("../../models/Profile");
 
 
 // @route   POST /api/resume
@@ -79,26 +78,32 @@ router.post(
 
 
         //add to programmingLanguages array
-        let programmingLanguage = req.body.roles.map(val => {return { role: val }})
-        if (programmingLanguage) resumeFields.programmingLanguages = programmingLanguage;
+        let programmingLanguages = req.body.programmingLanguages.map(val => {return { language: val }})
+        if (programmingLanguages) resumeFields.programmingLanguages = programmingLanguages;
 
         //add to framework array
-        let framework = req.body.roles.map(val => {return { role: val }})
-        if (framework) resumeFields.frameworks = framework;
+        let frameworks = req.body.frameworks.map(val => {return { framework: val }})
+        if (frameworks) resumeFields.frameworks = frameworks;
 
         //add to tech skills array
-        let skill = req.body.roles.map(val => {return { role: val }})
-        if (skill) resumeFields.techSkills = skill;
+        let skills = req.body.techSkills.map(val => {return { skill: val }})
+        if (skills) resumeFields.techSkills = skills;
 
         if (req.body.jobExperienceTime) resumeFields.jobExperienceTime = req.body.jobExperienceTime;
 
         //add to work experience array
-        if (req.body.companyName) resumeFields.companyName = req.body.companyName;
-        if (req.body.startDate) resumeFields.startDate = req.body.startDate;
-        if (req.body.endDate) resumeFields.endDate = req.body.endDate;
-        if (req.body.jobTitle) resumeFields.jobTitle = req.body.jobTitle;
-        if (req.body.jobDescription) resumeFields.jobDescription = req.body.jobDescription;
-
+        let workExperiences = []
+        req.body.jobTitles.forEach(element => {
+            let newProject = {}
+            let index = req.body.jobTitles.indexOf(element)
+            newProject.jobTitle = element
+            newProject.companyName = req.body.companyNames[index]
+            newProject.startDate = req.body.startDates[index]
+            newProject.endDate = req.body.endDates[index]
+            newProject.jobDescription = req.body.jobDescriptions[index]
+            workExperiences.push(newProject)
+        });
+        if (workExperiences.length !== 0) resumeFields.workExperiences = workExperiences;
 
         //find resume by user id
         Resume.findOne({
@@ -120,32 +125,6 @@ router.post(
         });
     }
 );
-
-
-
-// @route   POST /api/resume/test
-// @desc   post test
-// @access   Public
-router.post("/test", (req, res) => {
-    const newProfile = {
-        devRoles: req.body.roles.map(val => {
-            return { role: val }
-        }),
-        education: []
-    }
-
-    req.body.schoolNames.forEach(element => {
-        let newEducation = {}
-        let index = req.body.schoolNames.indexOf(element)
-        newEducation.schoolName = element
-        newEducation.diplomaAttained = req.body.diplomasAttained[index]
-        newEducation.diplomaTitle = req.body.diplomaTitles[index]
-        //add to model
-        newProfile.education.push(newEducation)
-    });
-    new Profile(newProfile).save().then(profile => res.json(profile))
-})
-
 
 
 // @route   GET /api/resume

@@ -14,7 +14,7 @@ module.exports = function validateResumeInput(data) {
     data.email = isEmpty(data.email) ? "" : data.email
     data.githubURL = isEmpty(data.githubURL) ? "" : data.githubURL
     data.devSkillsAcquiredVia = isEmpty(data.devSkillsAcquiredVia) ? "" : data.devSkillsAcquiredVia
-    data.jobExperience = isEmpty(data.jobExperience) ? "" : data.jobExperience
+    data.jobExperienceTime = isEmpty(data.jobExperienceTime) ? "" : data.jobExperienceTime
 
 
 
@@ -46,8 +46,8 @@ module.exports = function validateResumeInput(data) {
     if (validator.isEmpty(data.devSkillsAcquiredVia)) {
         errors.devSkillsAcquiredVia = "Developer skills acquired via field is required."
     }
-    if (validator.isEmpty(data.jobExperience)) {
-        errors.jobExperience = "Job experience field is required."
+    if (validator.isEmpty(data.jobExperienceTime)) {
+        errors.jobExperienceTime = "Job experience field is required."
     }
     if (!isEmpty(data.githubURL)) {
         if (!validator.isURL(data.githubURL)) {

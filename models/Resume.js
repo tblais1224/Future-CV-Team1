@@ -118,15 +118,17 @@ const ResumeSchema = new Schema({
     },
     workExperiences: [{
         companyName:{
-            type: Number,
+            type: String,
             required: true
         },
         startDate:{
             type: Date
         },
         endDate: {
-            type: Date
+            type: Date,
+            default: Date.now
         },
+        //maybe add a current option
         jobTitle: {
             type: String,
             required: true
