@@ -81,15 +81,15 @@ const ResumeSchema = new Schema({
         }
     }],
     capstoneProjects: [{
-        githubURL: {
+        projectGithubURL: {
             type: String,
             required: true
         },
-        description: {
+        projectDescription: {
             type: String,
             required: true
         },
-        primaryLanguage: {
+        projectPrimaryLanguage: {
             type: String,
             required: true
         }
@@ -112,12 +112,12 @@ const ResumeSchema = new Schema({
             required: true
         }
     }],
-    jobExperience: {
+    jobExperienceTime: {
         type: Number,
         required: true
     },
     workExperiences: [{
-        name:{
+        companyName:{
             type: Number,
             required: true
         },
@@ -131,7 +131,7 @@ const ResumeSchema = new Schema({
             type: String,
             required: true
         },
-        description: {
+        jobDescription: {
             type: String,
             required: true
         }
