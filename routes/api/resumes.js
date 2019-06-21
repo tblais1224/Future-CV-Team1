@@ -9,6 +9,7 @@ mongoose.set("useFindAndModify", false);
 const validateResumeInput = require("../../validations/resume");
 
 const Resume = require("../../models/Resume");
+const Profile = require("../../models/Profile");
 
 
 // @route   POST /api/resume
@@ -45,30 +46,49 @@ router.post(
         if (req.body.twitterURL) resumeFields.twitterURL = req.body.twitterURL;
         if (req.body.personalWebsiteURL) resumeFields.personalWebsiteURL = req.body.personalWebsiteURL;
         if (req.body.aboutMe) resumeFields.aboutMe = req.body.aboutMe;
+
         //add to devRoles array in db 
-        let devRole = {}
-        if (req.body.role) resumeFields.role = req.body.role;
-        
+        let devRole = req.body.roles.map(val => {return { role: val }})
+        if (devRole) resumeFields.devRoles = devRole;
+
         if (req.body.devSkillsAcquiredVia) resumeFields.devSkillsAcquiredVia = req.body.devSkillsAcquiredVia;
 
         //add to education array in db
-        if (req.body.schoolName) resumeFields.schoolName = req.body.schoolName;
-        if (req.body.diplomaAttained) resumeFields.diplomaAttained = req.body.diplomaAttained;
-        if (req.body.diplomaTitle) resumeFields.diplomaTitle = req.body.diplomaTitle;
+        let education = []
+        req.body.schoolNames.forEach(element => {
+            let newEducation = {}
+            let index = req.body.schoolNames.indexOf(element)
+            newEducation.schoolName = element
+            newEducation.diplomaAttained = req.body.diplomasAttained[index]
+            newEducation.diplomaTitle = req.body.diplomaTitles[index]
+            education.push(newEducation)
+        });
+        if (education.length !== 0) resumeFields.education = education;
 
         //add to capstone project array
-        if (req.body.projectGithubURL) resumeFields.projectGithubURL = req.body.projectGithubURL;
-        if (req.body.projectDescription) resumeFields.projectDescription = req.body.projectDescription;
-        if (req.body.projectPrimaryLanguage) resumeFields.projectPrimaryLanguage = req.body.projectPrimaryLanguage;
+        let capstoneProjects = []
+        req.body.projectGithubURLs.forEach(element => {
+            let newProject = {}
+            let index = req.body.projectGithubURLs.indexOf(element)
+            newProject.projectGithubURL = element
+            newProject.projectDescription = req.body.projectDescriptions[index]
+            newProject.projectPrimaryLanguage = req.body.projectPrimaryLanguages[index]
+            capstoneProjects.push(newProject)
+        });
+        if (capstoneProjects.length !== 0) resumeFields.capstoneProjects = capstoneProjects;
+
 
         //add to programmingLanguages array
-        if (req.body.language) resumeFields.language = req.body.language;
+        let programmingLanguage = req.body.roles.map(val => {return { role: val }})
+        if (programmingLanguage) resumeFields.programmingLanguages = programmingLanguage;
 
         //add to framework array
-        if (req.body.framework) resumeFields.framework = req.body.framework;
+        let framework = req.body.roles.map(val => {return { role: val }})
+        if (framework) resumeFields.frameworks = framework;
 
         //add to tech skills array
-        if (req.body.skill) resumeFields.skill = req.body.skill;
+        let skill = req.body.roles.map(val => {return { role: val }})
+        if (skill) resumeFields.techSkills = skill;
 
         if (req.body.jobExperienceTime) resumeFields.jobExperienceTime = req.body.jobExperienceTime;
 
@@ -78,6 +98,7 @@ router.post(
         if (req.body.endDate) resumeFields.endDate = req.body.endDate;
         if (req.body.jobTitle) resumeFields.jobTitle = req.body.jobTitle;
         if (req.body.jobDescription) resumeFields.jobDescription = req.body.jobDescription;
+
 
         //find resume by user id
         Resume.findOne({
@@ -101,6 +122,32 @@ router.post(
 );
 
 
+
+// @route   POST /api/resume/test
+// @desc   post test
+// @access   Public
+router.post("/test", (req, res) => {
+    const newProfile = {
+        devRoles: req.body.roles.map(val => {
+            return { role: val }
+        }),
+        education: []
+    }
+
+    req.body.schoolNames.forEach(element => {
+        let newEducation = {}
+        let index = req.body.schoolNames.indexOf(element)
+        newEducation.schoolName = element
+        newEducation.diplomaAttained = req.body.diplomasAttained[index]
+        newEducation.diplomaTitle = req.body.diplomaTitles[index]
+        //add to model
+        newProfile.education.push(newEducation)
+    });
+    new Profile(newProfile).save().then(profile => res.json(profile))
+})
+
+
+
 // @route   GET /api/resume
 // @desc   get all resumes
 // @access   Public
@@ -117,3 +164,6 @@ router.get("/", (req, res) => {
 });
 
 module.exports = router;
+
+
+
