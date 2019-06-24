@@ -9,7 +9,7 @@ class Landing extends Component {
           <div className="landing-title">
             <h4>Welcome to FutureCV!</h4>
             <br />
-            <div classname="col">
+            <div classname="col s6">
               <Link
                 to="/register"
                 style={{ width: "140px", borderRadius: "3px" }}
@@ -18,9 +18,23 @@ class Landing extends Component {
                 Register
               </Link>
             </div>
+            <div className="col s6">
+              <Link
+                to="/login"
+                style={{
+                  width: "140px",
+                  borderRadius: "3px"
+                }}
+                className="btn"
+              >
+                login
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default Landing;
