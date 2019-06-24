@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 
 //import components
-import Navbar from "./components/layout/Navbar";
+// import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import NotFound from "./components/not-found/NotFound";
@@ -15,10 +15,10 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navbar />
+          {/* <Navbar /> */}
           <Route exact path="/" component={Landing} />
           <div className="container">
-
+            
             <Route exact path="/not-found" component={NotFound} />
           </div>
           <Footer />
