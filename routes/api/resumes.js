@@ -47,7 +47,11 @@ router.post(
         if (req.body.aboutMe) resumeFields.aboutMe = req.body.aboutMe;
 
         //add to devRoles array in db 
-        let devRole = req.body.roles.map(val => {return { role: val }})
+        let devRole = req.body.roles.map(val => {
+            return {
+                role: val
+            }
+        })
         if (devRole) resumeFields.devRoles = devRole;
 
         if (req.body.devSkillsAcquiredVia) resumeFields.devSkillsAcquiredVia = req.body.devSkillsAcquiredVia;
@@ -78,15 +82,27 @@ router.post(
 
 
         //add to programmingLanguages array
-        let programmingLanguages = req.body.programmingLanguages.map(val => {return { language: val }})
+        let programmingLanguages = req.body.programmingLanguages.map(val => {
+            return {
+                language: val
+            }
+        })
         if (programmingLanguages) resumeFields.programmingLanguages = programmingLanguages;
 
         //add to framework array
-        let frameworks = req.body.frameworks.map(val => {return { framework: val }})
+        let frameworks = req.body.frameworks.map(val => {
+            return {
+                framework: val
+            }
+        })
         if (frameworks) resumeFields.frameworks = frameworks;
 
         //add to tech skills array
-        let skills = req.body.techSkills.map(val => {return { skill: val }})
+        let skills = req.body.techSkills.map(val => {
+            return {
+                skill: val
+            }
+        })
         if (skills) resumeFields.techSkills = skills;
 
         if (req.body.jobExperienceTime) resumeFields.jobExperienceTime = req.body.jobExperienceTime;
@@ -127,10 +143,10 @@ router.post(
 );
 
 
-// @route   GET /api/resume
+// @route   GET /api/resume/all
 // @desc   get all resumes
 // @access   Public
-router.get("/", (req, res) => {
+router.get("/all", (req, res) => {
     //this finds resumes and sorts them by the most recent date
     Resume.find()
         .sort({
@@ -142,7 +158,162 @@ router.get("/", (req, res) => {
         }));
 });
 
+// @route   GET /api/resume/
+// @desc   get current users resume if logged in
+// @access   Private
+router.get(
+    "/",
+    passport.authenticate("jwt", {
+      session: false
+    }),
+    (req, res) => {
+      const errors = {};
+      Resume.findOne({
+        user: req.user.id
+      })
+        .then(resume => {
+          if (!resume) {
+            errors.noResume = "There is no resume for this user!";
+            return res.status(404).json(errors);
+          }
+          res.json(resume);
+        })
+        .catch(err => res.status(404).json(err));
+    }
+  );
+
+// @route   GET api/resume/user/:user_id
+// @desc   get resume by user_id
+// @access   public
+router.get("/user/:user_id", (req, res) => {
+    const errors = {};
+    Resume.findOne({
+            user: req.params.user_id
+        })
+        .then(resume => {
+            if (!resume) {
+                errors.noResume = "There is not resume for this user.";
+                res.status(404).json(errors);
+            }
+            res.json(resume);
+        })
+        .catch(err =>
+            res.status(404).json({
+                resume: "No resume exists for this user."
+            })
+        );
+});
+
+// @route   GET api/resume/filter/language/:language
+// @desc   get resume by filter
+// @access   public
+router.get("/filter/language/:language", (req, res) => {
+    const errors = {};
+    Resume.find({
+            "programmingLanguages.language" : req.params.language
+        })
+        .then(resumes => {
+            if (!resumes) {
+                errors.noResume = "There is not a resume for this search filter.";
+                res.status(404).json(errors);
+            }
+            res.json(resumes);
+        })
+        .catch(err =>
+            res.status(404).json({
+                resume: "No resume exists for this search filter."
+            })
+        );
+});
+
+// @route   GET api/resume/filter/devrole/:role
+// @desc   get resume by filter
+// @access   public
+router.get("/filter/devrole/:role", (req, res) => {
+    const errors = {};
+    Resume.find({
+            "devRoles.role" : req.params.role
+        })
+        .then(resumes => {
+            if (!resumes) {
+                errors.noResume = "There is not a resume for this search filter.";
+                res.status(404).json(errors);
+            }
+            res.json(resumes);
+        })
+        .catch(err =>
+            res.status(404).json({
+                resume: "No resume exists for this search filter."
+            })
+        );
+});
+
+// @route   GET api/resume/filter/frameworks/:framework
+// @desc   get resume by filter
+// @access   public
+router.get("/filter/frameworks/:framework", (req, res) => {
+    const errors = {};
+    Resume.find({
+            "frameworks.framework" : req.params.framework
+        })
+        .then(resumes => {
+            if (!resumes) {
+                errors.noResume = "There is not a resume for this search filter.";
+                res.status(404).json(errors);
+            }
+            res.json(resumes);
+        })
+        .catch(err =>
+            res.status(404).json({
+                resume: "No resume exists for this search filter."
+            })
+        );
+});
+
+// @route   GET api/resume/filter/techskills/:skill
+// @desc   get resume by filter
+// @access   public
+router.get("/filter/techskills/:skill", (req, res) => {
+    const errors = {};
+    Resume.find({
+            "techSkills.skill" : req.params.skill
+        })
+        .then(resumes => {
+            if (!resumes) {
+                errors.noResume = "There is not a resume for this search filter.";
+                res.status(404).json(errors);
+            }
+            res.json(resumes);
+        })
+        .catch(err =>
+            res.status(404).json({
+                resume: "No resume exists for this search filter."
+            })
+        );
+});
+
+
+// @route   delete /api/resume
+// @desc   delete user and resume
+// @access   Private
+router.delete(
+    "/",
+    passport.authenticate("jwt", {
+        session: false
+    }),
+    (req, res) => {
+        Resume.findOneAndRemove({
+            user: req.user.id
+        }).then(() => {
+            User.findOneAndRemove({
+                _id: req.user.id
+            }).then(() => {
+                res.json({
+                    success: true
+                })
+            });
+        });
+    }
+);
+
 module.exports = router;
-
-
-
