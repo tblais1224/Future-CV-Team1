@@ -13,7 +13,7 @@ const validateLoginInput = require("../../validations/login")
 const User = require("../../models/User")
 
 
-// @route  POST  /api/user
+// @route  POST  /api/user/register
 // @desc   Register user
 // @access  Public
 // data passed in the body
@@ -54,8 +54,8 @@ router.post("/register", (req, res) => {
     })
 })
 
-// @route  POST  /api/user
-// @desc   Register user
+// @route  POST  /api/user/login
+// @desc   login user
 // @access  Public
 router.post("/login", (req, res) => {
     const {
@@ -106,12 +106,44 @@ router.post("/login", (req, res) => {
     })
 })
 
+//@route GET   api/user/message/:user_id
+//@desc        message a user by their id
+// @access     Private
+// router.post("/message/:user_id",
+//     passport.authenticate("jwt", {
+//         session: false
+//     }),
+//     (req, res) => {
+//         const {
+//             errors,
+//             isValid
+//         } = validateUserInput(req.body);
+//         //check validation
+//         if (!isValid) {
+//             return res.status(400).json(errors);
+//         }
+//         User.findById(req.params.user_id)
+//             .then(sendToUser => {
+//                 const newMessage = {
+//                     message: req.body.message,
+//                     name: req.user.name,
+//                     user: req.user.id
+//                 }
+
+//                 sendToUser.messages.unshift(newMessage)
+//                 sendToUser.save().then()
+//             })
+//     }
+// )
+
 //@route GET   api/user/current
 //@desc   Return the current logged in user
 // @access     Private
 router.get("/current",
     //auth token will be in header
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("jwt", {
+        session: false
+    }),
     (req, res) => {
         res.json({
             id: req.user.id,
