@@ -27,13 +27,13 @@ class App extends Component {
             <Switch>
               {/* <PrivateRoute exact path="/profile-resume" component={ResumeProfile} /> */}
               {/* below line is temporary */}
-              <Route exact path="profile-resume/" component={ResumeProfile} />
+              <Route exact path="/profile-resume" component={ResumeProfile} />
 
             </Switch>
             <Switch>
               {/* <PrivateRoute exact path="/create-resume" component={CreateResume} /> */}
                {/* below line is temporary */}
-              <Route exact path="create-resume/" component={CreateResume} />
+              <Route exact path="/create-resume" component={CreateResume} />
 
             </Switch>
             <Switch>
