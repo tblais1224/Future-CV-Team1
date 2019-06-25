@@ -12,15 +12,16 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-
+ 
 class DefaultNavbar extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false
     };
+
+    this.toggle = this.toggle.bind(this);
   }
 
   toggle() {
@@ -38,7 +39,7 @@ class DefaultNavbar extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Code Mentor Center</NavLink>
+                <NavLink href="https://www.facebook.com/groups/CodeMentorCenter/">Code Mentor Center</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/about">
@@ -50,10 +51,10 @@ class DefaultNavbar extends Component {
                   Options
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Login</DropdownItem>
-                  <DropdownItem>Register</DropdownItem>
+                  <DropdownItem href="/register-login">Login</DropdownItem>
+                  <DropdownItem href="/register-login">Register</DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>Get Help</DropdownItem>
+                  <DropdownItem href="/help">Get Help</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
