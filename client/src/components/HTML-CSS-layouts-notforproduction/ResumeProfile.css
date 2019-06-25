@@ -1,0 +1,21 @@
+.container{
+   display: flex;
+   flex-direction: column;
+}
+.center-content{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+.img-resume-avatar {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px 
+}
+.row-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around
+}
