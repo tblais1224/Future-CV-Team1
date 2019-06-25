@@ -28,12 +28,11 @@ const ResumeSchema = new Schema({
         required: true
     },
     zipCode: {
-        type: String,
+        type: Number,
         required: true
     },
     cellphone: {
-        type: String,
-        required: true
+        type: String
     },
     //maybe use the user email?
     email: {
@@ -82,15 +81,15 @@ const ResumeSchema = new Schema({
         }
     }],
     capstoneProjects: [{
-        githubURL: {
+        projectGithubURL: {
             type: String,
             required: true
         },
-        description: {
+        projectDescription: {
             type: String,
             required: true
         },
-        primaryLanguage: {
+        projectPrimaryLanguage: {
             type: String,
             required: true
         }
@@ -113,26 +112,28 @@ const ResumeSchema = new Schema({
             required: true
         }
     }],
-    jobExperience: {
+    jobExperienceTime: {
         type: Number,
         required: true
     },
     workExperiences: [{
-        name:{
-            type: Number,
+        companyName:{
+            type: String,
             required: true
         },
         startDate:{
             type: Date
         },
         endDate: {
-            type: Date
+            type: Date,
+            default: Date.now
         },
+        //maybe add a current option
         jobTitle: {
             type: String,
             required: true
         },
-        description: {
+        jobDescription: {
             type: String,
             required: true
         }

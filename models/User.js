@@ -1,10 +1,6 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-<<<<<<< HEAD
-=======
-
->>>>>>> test
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -14,6 +10,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    // implement a way to use company email if you are registering as a employer
     email: {
         type: String,
         required: true
@@ -22,6 +19,20 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    messages: [{
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "users"
+        },
+        message: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        }
+    }],
     date: {
         type: Date,
         default: Date.now
@@ -29,4 +40,4 @@ const UserSchema = new Schema({
 })
 
 
-module.exports = User = mongoose.model("users" , UserSchema)
+module.exports = User = mongoose.model("users", UserSchema)
