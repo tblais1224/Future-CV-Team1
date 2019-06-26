@@ -21,3 +21,10 @@ Front-End Packages (martinez)
 - react-router-dom: used for routing purposes
 - redux: used to manage state between components (can be used with React or any other view library)
 - redux-thunk: middleware for Redux that allows us to directly access the dispatch method to make asynchronous calls from our actions
+
+///////////////////
+// Carousel //
+///////////////////
+
+Referenced the site below
+https://codesandbox.io/s/lp602ljjj7
