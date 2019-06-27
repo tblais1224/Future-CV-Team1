@@ -51,8 +51,8 @@ class DefaultNavbar extends Component {
                   Options
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem href="/register-login">Login</DropdownItem>
-                  <DropdownItem href="/register-login">Register</DropdownItem>
+                  <DropdownItem href="/login">Login</DropdownItem>
+                  <DropdownItem href="/register">Register</DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem href="/help">Get Help</DropdownItem>
                 </DropdownMenu>

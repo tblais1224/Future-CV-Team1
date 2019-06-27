@@ -22,22 +22,22 @@ class App extends Component {
         <div className="App">
           <DefaultNavbar />
           <Route exact path="/" component={Landing} />
-          <div className="container">
+          <div className="container m-3">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             {/* if not logged in redirect from dashboard to login */}
             <Switch>
               {/* <PrivateRoute exact path="/profile-resume" component={ResumeProfile} /> */}
               {/* below line is temporary */}
-              <Route exact path="/profile-resume" component={ResumeProfile} />
+              <Route exact path="/profile/resume" component={ResumeProfile} />
             </Switch>
             <Switch>
               {/* <PrivateRoute exact path="/create-resume" component={CreateResume} /> */}
               {/* below line is temporary */}
-              <Route exact path="/create-resume" component={CreateResume} />
+              <Route exact path="/profile/resume/create" component={CreateResume} />
             </Switch>
             <Switch>
-              {/* <PrivateRoute exact path="/edit-resume" component={EditResume} /> */}
+              {/* <PrivateRoute exact path="/profile/resume/edit" component={EditResume} /> */}
             </Switch>
             <Route exact path="/not-found" component={NotFound} />
           </div>

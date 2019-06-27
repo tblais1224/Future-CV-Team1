@@ -3,6 +3,9 @@
   height: 100px;
   width: 100px;
 }
+.resume-title{
+  width: 100%;
+}
 .flex-container-spacearound {
   display: flex;
   justify-content: space-around;
