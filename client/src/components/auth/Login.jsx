@@ -24,18 +24,28 @@ class Login extends Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  //find a way to switch this to getDerivedState or compdidupdate
+  componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/profile/resume")
+      this.props.history.push("/profile/resume");
     }
     if (nextProps.errors) {
-      return { errors: nextProps.errors }
+      this.setState({ errors: nextProps.errors });
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   // if (nextProps.auth.isAuthenticated) {
+  //   //   this.props.history.push("/profile/resume")
+  //   // }
+  //   if (nextProps.errors) {
+  //     return { errors: nextProps.errors }
+  //   }
+  // }
+
+  // componentDidUpdate(prevProps, prevState){
     
-  }
+  // }
 
   //radio button handler
   handleChange(event) {
@@ -51,8 +61,6 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }
-
-    console.log(userData)
 
     //call the loginUser Action in the props
     this.props.loginUser(userData)

@@ -23,7 +23,20 @@ import NotFound from "./components/not-found/NotFound";
 import "./App.css";
 
 if (localStorage.jwtToken) {
+  //set the token to the header
   setAuthToken(localStorage.jwtToken);
+  //decode the token
+  const decoded = jwt_decode(localStorage.jwtToken)
+  //set the user and isAuth
+  store.dispatch(setCurrentUser(decoded))
+  //check if the token has expired
+  const currentTime = Date.now() / 1000
+  if (decoded.exp < currentTime) {
+    //logout user
+    store.dispatch(logoutUser())
+    //redirect to the login page
+    window.location.href = "/login"
+  }
 }
 
 class App extends Component {
