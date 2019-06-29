@@ -23,6 +23,7 @@ export const loginUser = userData => dispatch => {
     .post("/api/user/login", userData)
     .then(res => {
       //save the auth token to to the users local storage
+      console.log(res.data)
 
       //below is returned after succesful auth and jwttoken creation
       //res.json({ success: true, token: "Bearer " + token })
@@ -33,6 +34,7 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       //decode the jwt token to get the users data
       const decodedTokenData = jwt_decode(token);
+      console.log(decodedTokenData)
       //set the current user to the data from the decoded token
       dispatch(setCurrentUser(decodedTokenData));
     })

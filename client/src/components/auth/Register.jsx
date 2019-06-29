@@ -54,7 +54,7 @@ class Register extends Component {
     }
   }
 
-  onSubmit = event => {
+  onSubmit (event) {
     event.preventDefault();
 
     const newUser = {
