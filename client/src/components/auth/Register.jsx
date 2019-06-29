@@ -22,6 +22,7 @@ class Register extends Component {
       errors: {}
     };
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   //useful lifecycle diagram of react componenets
@@ -54,7 +55,7 @@ class Register extends Component {
     }
   }
 
-  onSubmit = event => {
+  onSubmit (event) {
     event.preventDefault();
 
     const newUser = {

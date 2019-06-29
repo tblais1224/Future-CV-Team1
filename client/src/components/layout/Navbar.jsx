@@ -12,7 +12,11 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
- 
+import { Link } from "react-router-dom"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { logoutUser } from "../../actions/authActions"
+
 class DefaultNavbar extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +28,11 @@ class DefaultNavbar extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
+  onLogoutClick(e) {
+    e.preventDefault()
+    this.props.logoutUser()
+  }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -31,6 +40,26 @@ class DefaultNavbar extends Component {
   }
 
   render() {
+
+    const { isAuthenticated, user } = this.props.auth
+
+    const authLinks = (
+      <DropdownMenu right>
+        <DropdownItem onClick={this.onLogoutClick.bind(this)}>Logout</DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem href="/help">Get Help</DropdownItem>
+      </DropdownMenu>
+    )
+
+    const guestLinks = (
+      <DropdownMenu right>
+        <DropdownItem href="/login">Login</DropdownItem>
+        <DropdownItem href="/register">Register</DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem href="/help">Get Help</DropdownItem>
+      </DropdownMenu>
+    )
+
     return (
       <div>
         <Navbar className="bg-info text-black font-weight-bold" light expand="md">
@@ -50,12 +79,7 @@ class DefaultNavbar extends Component {
                 <DropdownToggle nav caret>
                   Options
                 </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem href="/login">Login</DropdownItem>
-                  <DropdownItem href="/register">Register</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem href="/help">Get Help</DropdownItem>
-                </DropdownMenu>
+                {isAuthenticated ? authLinks : guestLinks}
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
@@ -65,4 +89,13 @@ class DefaultNavbar extends Component {
   }
 }
 
-export default DefaultNavbar;
+DefaultNavbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps, { logoutUser })(DefaultNavbar);
