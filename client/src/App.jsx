@@ -16,7 +16,7 @@ import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import CreateResume from "./components/resume/CreateResume";
-// import EditResume from "./components/profiles/EditResume";
+import EditResume from "./components/resume/EditResume";
 import ResumeProfile from "./components/profiles/ResumeProfile";
 import NotFound from "./components/not-found/NotFound";
 
@@ -44,16 +44,10 @@ class App extends Component {
                 <Route exact path="/profile/resume" component={ResumeProfile} />
               </Switch>
               <Switch>
-                {/* <PrivateRoute exact path="/create-resume" component={CreateResume} /> */}
-                {/* below line is temporary */}
-                <Route
-                  exact
-                  path="/profile/resume/create"
-                  component={CreateResume}
-                />
+                <PrivateRoute exact path="/profile/resume/create" component={CreateResume} />
               </Switch>
               <Switch>
-                {/* <PrivateRoute exact path="/profile/resume/edit" component={EditResume} /> */}
+                <PrivateRoute exact path="/profile/resume/edit" component={EditResume} />
               </Switch>
               <Route exact path="/not-found" component={NotFound} />
             </div>
