@@ -37,7 +37,7 @@ router.post(
         if (req.body.address) resumeFields.address = req.body.address;
         if (req.body.city) resumeFields.city = req.body.city;
         if (req.body.state) resumeFields.state = req.body.state;
-        if (req.body.zipCode) resumeFields.zipCode = req.body.zipCode;
+        if (req.body.zipCode) resumeFields.zipCode = parseInt(req.body.zipCode);
         if (req.body.cellphone) resumeFields.cellphone = req.body.cellphone;
         if (req.body.email) resumeFields.email = req.body.email;
         if (req.body.githubURL) resumeFields.githubURL = req.body.githubURL;
