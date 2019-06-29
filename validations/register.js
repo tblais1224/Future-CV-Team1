@@ -5,7 +5,7 @@ module.exports = function validateRegisterInput(data) {
     let errors = {}
     //if isEmpty(data.name) returns true, return empty string "", else return the data.name
     //this is done because validator requires a string, if not a string it will error
-    data.name = isEmpty(data.name) ? "" : data.name
+    // data.name = isEmpty(data.name) ? "" : data.name
     data.email = isEmpty(data.email) ? "" : data.email
     data.password = isEmpty(data.password) ? "" : data.password
     data.password2 = isEmpty(data.password2) ? "" : data.password2
@@ -13,15 +13,15 @@ module.exports = function validateRegisterInput(data) {
 
 
     //below are the error handling that will be displayed to the user
-    if (!validator.isLength(data.name, {
-            min: 3,
-            max: 25
-        })) {
-        errors.name = "Your name must be between 3 and 25 characters."
-    }
-    if (validator.isEmpty(data.name)) {
-        errors.name = "Name field is required."
-    }
+    // if (!validator.isLength(data.name, {
+    //         min: 3,
+    //         max: 25
+    //     })) {
+    //     errors.name = "Your name must be between 3 and 25 characters."
+    // }
+    // if (validator.isEmpty(data.name)) {
+    //     errors.name = "Name field is required."
+    // }
     if (!validator.isEmail(data.email)) {
         errors.email = "Email is invalid."
     }
