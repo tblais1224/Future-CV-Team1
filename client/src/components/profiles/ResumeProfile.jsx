@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ResumeDisplay from "./ResumeDisplay"
-import Messages from "./ResumeMessages"
 
 class ResumeProfile extends Component {
     render() {

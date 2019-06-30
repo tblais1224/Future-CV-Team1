@@ -77,7 +77,7 @@ class Register extends Component {
             Create a new FutureCV account!
           </h2>
           <div className="form-group">
-            <label for="inputEmail" className="col-sm-2 control-label">
+            <label htmlFor="inputEmail" className="col-sm-2 control-label">
               Email
             </label>
             <div className="col-sm-10 ">
@@ -97,7 +97,7 @@ class Register extends Component {
             </div>
           </div>
           <div className="form-group">
-            <label for="inputPassword" className="col-sm-2 control-label">
+            <label htmlFor="inputPassword" className="col-sm-2 control-label">
               Password
             </label>
             <div className="col-sm-10">
@@ -117,7 +117,7 @@ class Register extends Component {
             </div>
           </div>
           <div className="form-group">
-            <label for="inputPassword2" className="col-sm-2 control-label">
+            <label htmlFor="inputPassword2" className="col-sm-2 control-label">
               Confirm Password
             </label>
             <div className="col-sm-10">
@@ -139,7 +139,7 @@ class Register extends Component {
           <div className={classnames("form-group", {
                       "is-invalid": errors.type
                     })}>
-            <label for="radioUserType" className="col-sm-2 control-label">
+            <label htmlFor="radioUserType" className="col-sm-2 control-label">
               Account Type
             </label>
             {/* the bellow error display for the type of account errors is not working */}

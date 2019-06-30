@@ -12,7 +12,6 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { logoutUser } from "../../actions/authActions"
@@ -41,7 +40,7 @@ class DefaultNavbar extends Component {
 
   render() {
 
-    const { isAuthenticated, user } = this.props.auth
+    const { isAuthenticated } = this.props.auth
 
     const authLinks = (
       <DropdownMenu right>
