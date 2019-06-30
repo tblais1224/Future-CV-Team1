@@ -76,8 +76,8 @@ class Register extends Component {
           <h2 style={{ textAlign: "center" }}>
             Create a new FutureCV account!
           </h2>
-          <div className="form-group">
-            <label htmlFor="inputEmail" className="col-sm-2 control-label">
+          <div className="form-groupcol-xs-1 m-3" align="center">
+            <label htmlFor="inputEmail" className="col-sm-2 control-label float-left">
               Email
             </label>
             <div className="col-sm-10 ">
@@ -96,8 +96,8 @@ class Register extends Component {
               {errors.email && <div className="invalid-feedback">{errors.email}</div>}
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="inputPassword" className="col-sm-2 control-label">
+          <div className="form-groupcol-xs-1 m-3" align="center">
+            <label htmlFor="inputPassword" className="col-sm-2 control-label float-left">
               Password
             </label>
             <div className="col-sm-10">
@@ -116,8 +116,8 @@ class Register extends Component {
               {errors.password && <div className="invalid-feedback">{errors.password}</div>}
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="inputPassword2" className="col-sm-2 control-label">
+          <div className="form-groupcol-xs-1 m-3" align="center">
+            <label htmlFor="inputPassword2" className="float-left col-sm-24control-label">
               Confirm Password
             </label>
             <div className="col-sm-10">
@@ -136,7 +136,7 @@ class Register extends Component {
               {errors.password2 && <div className="invalid-feedback">{errors.password2}</div>}
             </div>
           </div>
-          <div className={classnames("form-group", {
+          <div className={classnames("form-group m-3", {
                       "is-invalid": errors.type
                     })}>
             <label htmlFor="radioUserType" className="col-sm-2 control-label">
@@ -144,7 +144,7 @@ class Register extends Component {
             </label>
             {/* the bellow error display for the type of account errors is not working */}
             {errors.type && <div className="invalid-feedback">{errors.type}</div>}
-            <div className="col-sm-offset-2 col-sm-10">
+            <div className="col-sm-offset-2 col-sm-10 col-xs-1" align="center">
               <div className="radio">
                 <label>
                   <input
@@ -158,7 +158,7 @@ class Register extends Component {
                 </label>
               </div>
             </div>
-            <div className="col-sm-offset-2 col-sm-10">
+            <div className="col-sm-offset-2 col-sm-10 col-xs-1" align="center">
               <div className="radio">
                 <label>
                   <input
@@ -176,7 +176,7 @@ class Register extends Component {
               </div>
             </div>
           </div>
-          <div className="form-group">
+          <div className="form-groupcol-xs-1" align="center">
             <div className="col-sm-offset-2 col-sm-10">
               <button type="submit" className="btn btn-info">
                 Create Account

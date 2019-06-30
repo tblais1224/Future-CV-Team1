@@ -55,11 +55,10 @@ const ResumeSchema = new Schema({
     aboutMe: {
         type: String
     },
-    devRoles: [{
-        role: {
-            type: String
-        }
-    }],
+    devRole: {
+        type: String,
+        required: true
+    },
     devSkillsAcquiredVia: {
         type: String,
         required: true

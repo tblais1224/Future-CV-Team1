@@ -45,15 +45,7 @@ router.post(
         if (req.body.twitterURL) resumeFields.twitterURL = req.body.twitterURL;
         if (req.body.personalWebsiteURL) resumeFields.personalWebsiteURL = req.body.personalWebsiteURL;
         if (req.body.aboutMe) resumeFields.aboutMe = req.body.aboutMe;
-
-        //add to devRoles array in db 
-        let devRole = req.body.roles.map(val => {
-            return {
-                role: val
-            }
-        })
-        if (devRole) resumeFields.devRoles = devRole;
-
+        if (req.body.devRole) resumeFields.devRole = req.body.devRole;
         if (req.body.devSkillsAcquiredVia) resumeFields.devSkillsAcquiredVia = req.body.devSkillsAcquiredVia;
 
         //add to education array in db
