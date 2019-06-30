@@ -105,7 +105,7 @@ router.post(
         })
         if (skills) resumeFields.techSkills = skills;
 
-        if (req.body.jobExperienceTime) resumeFields.jobExperienceTime = req.body.jobExperienceTime;
+        if (req.body.jobExperienceTime) resumeFields.jobExperienceTime = parseInt(req.body.jobExperienceTime);
 
         //add to work experience array
         let workExperiences = []
