@@ -123,6 +123,7 @@ class Resume extends Component {
     const newEducation = [];
 
     for (let i = 0; i < this.state.educationCount; i++) {
+      let id = `${i}`
       newEducation.push(
         <div className="newEducation-container border border-info p-2">
           <div className="form-group">
@@ -135,7 +136,7 @@ class Resume extends Component {
                 className={classnames("form-control", {
                   "is-invalid": errors.schoolName
                 })}
-                id="inputSchoolName"
+                id={id}
                 name="schoolName"
                 value={this.state.schoolName}
                 onChange={this.onChange}
@@ -159,7 +160,7 @@ class Resume extends Component {
                 className={classnames("form-control", {
                   "is-invalid": errors.diplomaAttained
                 })}
-                id="inputDiplomaAttained"
+                id={id}
                 name="diplomaAttained"
                 value={this.state.diplomaAttained}
                 onChange={this.onChange}
@@ -183,7 +184,7 @@ class Resume extends Component {
                 className={classnames("form-control", {
                   "is-invalid": errors.diplomaTitle
                 })}
-                id="inputDiplomaTitle"
+                id={id}
                 name="diplomaTitle"
                 value={this.state.diplomaTitle}
                 onChange={this.onChange}
@@ -539,7 +540,7 @@ class Resume extends Component {
             </Label>
             {newEducation}
             <button
-              className="btn-sm btn-info m-3"
+              className="btn-sm btn-success m-3"
               name="educationCount"
               type="button"
               onClick={this.addToCounter}
