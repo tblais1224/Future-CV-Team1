@@ -22,7 +22,7 @@ class Resume extends Component {
       githubURL: "",
       linkedInURL: "",
       twitterURL: "",
-      peronalWebsiteURL: "",
+      personalWebsiteURL: "",
       aboutMe: "",
       roles: "",
       devSkillsAcquiredVia: "",
@@ -32,13 +32,14 @@ class Resume extends Component {
       diplomaTitles: [],
       projectCount: 1,
       projectGithubURLs: [],
-      pojectDescriptions: [],
+      projectTitles: [],
+      projectDescriptions: [],
       projectPrimaryLanguages: [],
-      languagesCount: 1,
+      languageCount: 1,
       programmingLanguages: [],
-      frameworksCount: 1,
+      frameworkCount: 1,
       frameworks: [],
-      techSkillsCount: 1,
+      techSkillCount: 1,
       techSkills: [],
       jobCount: 1,
       jobTitles: [],
@@ -46,14 +47,14 @@ class Resume extends Component {
       startDates: [],
       endDates: [],
       jobDescriptions: [],
-      jobExperienceTime: 0,
+      jobExperienceTime: "",
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onChangeStateArray = this.onChangeStateArray.bind(this);
     this.addToCounter = this.addToCounter.bind(this);
-    this.removeFromCounter = this.removeFromCounter.bind(this);
+    this.removeField = this.removeField.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -62,9 +63,16 @@ class Resume extends Component {
   }
 
   onChangeStateArray(e) {
-    this.setState(prevState => ({
-      [e.target.id]: [...prevState[e.target.id], e.target.value]
-    }));
+    let name = e.target.name
+    let idNum = parseInt(e.target.id)
+    let array = [...this.state[name]]; // create the copy of state array
+
+    if (array[idNum]) {
+      array[idNum] = e.target.value
+    } else {
+      array.push(e.target.value)
+    }
+    this.setState({ [name]: array })
   }
 
   addToCounter(e) {
@@ -72,11 +80,84 @@ class Resume extends Component {
     count++;
     this.setState({ [e.target.name]: count });
   }
-  removeFromCounter(e) {
+
+  // refactor this to avoid the if statements
+  removeField(e) {
     let count = this.state[e.target.name];
+    let idNum = parseInt(e.target.id)
     if (count > 1) {
       count--;
       this.setState({ [e.target.name]: count });
+
+      if (e.target.name === "educationCount") {
+        let schoolNamesArr = this.state.schoolNames
+        schoolNamesArr.splice(idNum, 1)
+        let diplomasAttainedArr = this.state.diplomasAttained
+        diplomasAttainedArr.splice(idNum, 1)
+        let diplomaTitlesArr = this.state.diplomaTitles
+        diplomaTitlesArr.splice(idNum, 1)
+        this.setState({
+          schoolNames: schoolNamesArr,
+          diplomasAttained: diplomasAttainedArr,
+          diplomaTitles: diplomaTitlesArr
+        });
+      }
+      if (e.target.name === "projectCount") {
+        let githubURLArr = this.state.projectGithubURLs
+        githubURLArr.splice(idNum, 1)
+        let titleArr = this.state.projectTitles
+        titleArr.splice(idNum, 1)
+        let languagesArr = this.state.projectPrimaryLanguages
+        languagesArr.splice(idNum, 1)
+        let descriptionArr = this.state.projectDescriptions
+        descriptionArr.splice(idNum, 1)
+        this.setState({
+          projectGithubURLs: githubURLArr,
+          projectTitles: titleArr,
+          projectDescriptions: descriptionArr,
+          projectPrimaryLanguages: descriptionArr
+        });
+      }
+      if (e.target.name === "languagesCount") {
+        let languageArr = this.state.programmingLanguages
+        languageArr.splice(idNum, 1)
+        this.setState({
+          programmingLanguages: languageArr,
+        });
+      }
+      if (e.target.name === "frameworksCount") {
+        let frameworkArr = this.state.frameworks
+        frameworkArr.splice(idNum, 1)
+        this.setState({
+          frameworks: frameworkArr,
+        });
+      }
+      if (e.target.name === "techSkillsCount") {
+        let techSkillArr = this.state.techSkills
+        techSkillArr.splice(idNum, 1)
+        this.setState({
+          techSkills: techSkillArr,
+        });
+      }
+      if (e.target.name === "jobCount") {
+        let jobTitleArr = this.state.jobTitles
+        jobTitleArr.splice(idNum, 1)
+        let jobDescriptionArr = this.state.jobDescriptions
+        jobDescriptionArr.splice(idNum, 1)
+        let companyArr = this.state.companyNames
+        companyArr.splice(idNum, 1)
+        let startArr = this.state.startDates
+        startArr.splice(idNum, 1)
+        let endArr = this.state.endDates
+        endArr.splice(idNum, 1)
+        this.setState({
+          jobTitles: jobTitleArr,
+          jobDescriptions: jobDescriptionArr,
+          companyNames: companyArr,
+          startDates: startArr,
+          endDates: endArr,
+        });
+      }
     }
   }
 
@@ -95,14 +176,15 @@ class Resume extends Component {
       githubURL: this.state.githubURL,
       linkedInURL: this.state.linkedInURL,
       twitterURL: this.state.twitterURL,
-      peronalWebsiteURL: this.state.personalWebsiteURL,
+      personalWebsiteURL: this.state.personalWebsiteURL,
       roles: this.state.roles,
       devSkillsAcquiredVia: this.state.devSkillsAcquiredVia,
       schoolNames: this.state.schoolNames,
       diplomasAttained: this.state.diplomasAttained,
       diplomaTitles: this.state.diplomaTitles,
       projectGithubURLs: this.state.projectGithubURLs,
-      pojectDescriptions: this.state.projectDescriptions,
+      projectTitles: this.state.projectTitles,
+      projectDescriptions: this.state.projectDescriptions,
       projectPrimaryLanguages: this.state.projectPrimaryLanguages,
       programmingLanguages: this.state.programmingLanguages,
       frameworks: this.state.frameworks,
@@ -121,11 +203,17 @@ class Resume extends Component {
     const { errors } = this.state;
 
     const newEducation = [];
+    const newJob = [];
+    const newProject = [];
+    const newLanguage = [];
+    const newFramework = [];
+    const newTechSkill = [];
 
+//add education inputs
     for (let i = 0; i < this.state.educationCount; i++) {
       let id = `${i}`
       newEducation.push(
-        <div className="newEducation-container border border-info p-2">
+        <div className="newEducation-container border border-info p-2" id={"containerIndex" + i}>
           <div className="form-group">
             <label htmlFor="inputSchoolName" className="col-sm-4 control-label">
               School Name
@@ -137,9 +225,9 @@ class Resume extends Component {
                   "is-invalid": errors.schoolName
                 })}
                 id={id}
-                name="schoolName"
-                value={this.state.schoolName}
-                onChange={this.onChange}
+                name="schoolNames"
+                value={this.state.schoolNames[i]}
+                onChange={this.onChangeStateArray}
                 placeholder="School Name"
               />
               {errors.schoolName && (
@@ -152,7 +240,7 @@ class Resume extends Component {
               htmlFor="inputDiplomaAttained"
               className="col-sm-6 control-label"
             >
-              Diploma or Degree Attained I.e. "Bachelore's"
+              Diploma or Degree Attained I.e. "bachelor's"
             </label>
             <div className="col-sm-10 ">
               <input
@@ -161,9 +249,9 @@ class Resume extends Component {
                   "is-invalid": errors.diplomaAttained
                 })}
                 id={id}
-                name="diplomaAttained"
-                value={this.state.diplomaAttained}
-                onChange={this.onChange}
+                name="diplomasAttained"
+                value={this.state.diplomasAttained[i]}
+                onChange={this.onChangeStateArray}
                 placeholder="First Name"
               />
               {errors.diplomaAttained && (
@@ -185,9 +273,9 @@ class Resume extends Component {
                   "is-invalid": errors.diplomaTitle
                 })}
                 id={id}
-                name="diplomaTitle"
-                value={this.state.diplomaTitle}
-                onChange={this.onChange}
+                name="diplomaTitles"
+                value={this.state.diplomaTitles[i]}
+                onChange={this.onChangeStateArray}
                 placeholder="Diploma Title"
               />
               {errors.diplomaTitle && (
@@ -195,6 +283,306 @@ class Resume extends Component {
               )}
             </div>
           </div>
+          <button
+            className="btn-sm btn-danger m-3"
+            name="educationCount"
+            type="button"
+            id={i}
+            onClick={this.removeField}
+          >
+            Delete
+            </button>
+        </div>
+      );
+    }
+
+    //add project inputs
+    for (let i = 0; i < this.state.projectCount; i++) {
+      let id = `${i}`
+      newProject.push(
+        <div className="newProject-container border border-info p-2" id={"containerIndex" + i}>
+          <div className="form-group">
+            <label htmlFor="inputSchoolName" className="col-sm-4 control-label">
+              School Name
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.schoolName
+                })}
+                id={id}
+                name="schoolNames"
+                value={this.state.schoolNames[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="School Name"
+              />
+              {errors.schoolName && (
+                <div className="invalid-feedback">{errors.schoolName}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputDiplomaAttained"
+              className="col-sm-6 control-label"
+            >
+              Diploma or Degree Attained I.e. "bachelor's"
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.diplomaAttained
+                })}
+                id={id}
+                name="diplomasAttained"
+                value={this.state.diplomasAttained[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="First Name"
+              />
+              {errors.diplomaAttained && (
+                <div className="invalid-feedback">{errors.diplomaAttained}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputDiplomaTitle"
+              className="col-sm-10 control-label"
+            >
+              Diploma / Degree Title
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.diplomaTitle
+                })}
+                id={id}
+                name="diplomaTitles"
+                value={this.state.diplomaTitles[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Diploma Title"
+              />
+              {errors.diplomaTitle && (
+                <div className="invalid-feedback">{errors.diplomaTitle}</div>
+              )}
+            </div>
+          </div>
+          <button
+            className="btn-sm btn-danger m-3"
+            name="educationCount"
+            type="button"
+            id={i}
+            onClick={this.removeField}
+          >
+            Delete
+            </button>
+        </div>
+      );
+    }
+
+    //add job inputs
+    for (let i = 0; i < this.state.jobCount; i++) {
+      let id = `${i}`
+      newJob.push(
+        <div className="newJob-container border border-info p-2" id={"containerIndex" + i}>
+          <div className="form-group">
+            <label htmlFor="inputSchoolName" className="col-sm-4 control-label">
+              School Name
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.schoolName
+                })}
+                id={id}
+                name="schoolNames"
+                value={this.state.schoolNames[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="School Name"
+              />
+              {errors.schoolName && (
+                <div className="invalid-feedback">{errors.schoolName}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputDiplomaAttained"
+              className="col-sm-6 control-label"
+            >
+              Diploma or Degree Attained I.e. "bachelor's"
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.diplomaAttained
+                })}
+                id={id}
+                name="diplomasAttained"
+                value={this.state.diplomasAttained[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="First Name"
+              />
+              {errors.diplomaAttained && (
+                <div className="invalid-feedback">{errors.diplomaAttained}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputDiplomaTitle"
+              className="col-sm-10 control-label"
+            >
+              Diploma / Degree Title
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.diplomaTitle
+                })}
+                id={id}
+                name="diplomaTitles"
+                value={this.state.diplomaTitles[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Diploma Title"
+              />
+              {errors.diplomaTitle && (
+                <div className="invalid-feedback">{errors.diplomaTitle}</div>
+              )}
+            </div>
+          </div>
+          <button
+            className="btn-sm btn-danger m-3"
+            name="educationCount"
+            type="button"
+            id={i}
+            onClick={this.removeField}
+          >
+            Delete
+            </button>
+        </div>
+      );
+    }
+
+    //add languages inputs
+    for (let i = 0; i < this.state.languageCount; i++) {
+      let id = `${i}`
+      newLanguage.push(
+        <div className="newLanguage-container border border-info p-2" id={"containerIndex" + i}>
+          <div className="form-group">
+            <label htmlFor="inputProgrammingLanguages" className="col-sm-4 control-label">
+              Programming Languages
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.programmingLanguages
+                })}
+                id={id}
+                name="programmingLanguages"
+                value={this.state.programmingLanguages[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Language"
+              />
+              {errors.programmingLanguages && (
+                <div className="invalid-feedback">{errors.programmingLanguages}</div>
+              )}
+            </div>
+          </div>
+          <button
+            className="btn-sm btn-danger m-3"
+            name="languageCount"
+            type="button"
+            id={i}
+            onClick={this.removeField}
+          >
+            Delete
+            </button>
+        </div>
+      );
+    }
+
+    //add frameworks inputs
+    for (let i = 0; i < this.state.frameworkCount; i++) {
+      let id = `${i}`
+      newFramework.push(
+        <div className="newFramework-container border border-info p-2" id={"containerIndex" + i}>
+          <div className="form-group">
+            <label htmlFor="inputFramework" className="col-sm-4 control-label">
+              School Name
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.frameworks
+                })}
+                id={id}
+                name="frameworks"
+                value={this.state.frameworks[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Framework"
+              />
+              {errors.frameworks && (
+                <div className="invalid-feedback">{errors.frameworks}</div>
+              )}
+            </div>
+          </div>
+          <button
+            className="btn-sm btn-danger m-3"
+            name="frameworkCount"
+            type="button"
+            id={i}
+            onClick={this.removeField}
+          >
+            Delete
+            </button>
+        </div>
+      );
+    }
+
+    //add techskills inputs
+    for (let i = 0; i < this.state.techSkillCount; i++) {
+      let id = `${i}`
+      newTechSkill.push(
+        <div className="newTechSkill-container border border-info p-2" id={"containerIndex" + i}>
+          <div className="form-group">
+            <label htmlFor="inputTechSkills" className="col-sm-4 control-label">
+              Other Tech Skill I.e. "MongoDB"
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.techSkills
+                })}
+                id={id}
+                name="techSkills"
+                value={this.state.techSkills[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Tech Skill"
+              />
+              {errors.techSkills && (
+                <div className="invalid-feedback">{errors.techSkills}</div>
+              )}
+            </div>
+          </div>
+          <button
+            className="btn-sm btn-danger m-3"
+            name="techSkillCount"
+            type="button"
+            id={i}
+            onClick={this.removeField}
+          >
+            Delete
+            </button>
         </div>
       );
     }
@@ -534,6 +922,27 @@ class Resume extends Component {
               )}
             </FormGroup>
           </div>
+          <div className="form-group">
+            <label htmlFor="inputEmail" className="col-sm-4 control-label">
+              Number of Years Working as a Developer
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.jobExperienceTime
+                })}
+                id="inputJobExperienceTime"
+                name="jobExperienceTime"
+                value={this.state.jobExperienceTime}
+                onChange={this.onChange}
+                placeholder="Number of years working"
+              />
+              {errors.jobExperienceTime && (
+                <div className="invalid-feedback">{errors.jobExperienceTime}</div>
+              )}
+            </div>
+          </div>
           <div>
             <Label htmlFor="inputAboutMe" className="col-sm-8 control-label">
               Education:
@@ -547,13 +956,50 @@ class Resume extends Component {
             >
               Add Another Education
             </button>
+            {newProject}
             <button
-              className="btn-sm btn-danger m-3"
-              name="educationCount"
+              className="btn-sm btn-success m-3"
+              name="projectCount"
               type="button"
-              onClick={this.removeFromCounter}
+              onClick={this.addToCounter}
             >
-              Delete an Education
+              Add Another Project
+            </button>
+            {newJob}
+            <button
+              className="btn-sm btn-success m-3"
+              name="jobCount"
+              type="button"
+              onClick={this.addToCounter}
+            >
+              Add Another Job
+            </button>
+            {newLanguage}
+            <button
+              className="btn-sm btn-success m-3"
+              name="languageCount"
+              type="button"
+              onClick={this.addToCounter}
+            >
+              Add Another Programming Language
+            </button>
+            {newFramework}
+            <button
+              className="btn-sm btn-success m-3"
+              name="frameworkCount"
+              type="button"
+              onClick={this.addToCounter}
+            >
+              Add Another Framework
+            </button>
+            {newTechSkill}
+            <button
+              className="btn-sm btn-success m-3"
+              name="techSkillCount"
+              type="button"
+              onClick={this.addToCounter}
+            >
+              Add Another Tech Skill
             </button>
           </div>
           <div className="form-groupcol-xs-1" align="center">

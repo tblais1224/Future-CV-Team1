@@ -67,6 +67,7 @@ router.post(
             let index = req.body.projectGithubURLs.indexOf(element)
             newProject.projectGithubURL = element
             newProject.projectDescription = req.body.projectDescriptions[index]
+            newProject.projectTitle = req.body.projectTitles[index]
             newProject.projectPrimaryLanguage = req.body.projectPrimaryLanguages[index]
             capstoneProjects.push(newProject)
         });
@@ -102,14 +103,14 @@ router.post(
         //add to work experience array
         let workExperiences = []
         req.body.jobTitles.forEach(element => {
-            let newProject = {}
+            let newJob = {}
             let index = req.body.jobTitles.indexOf(element)
-            newProject.jobTitle = element
-            newProject.companyName = req.body.companyNames[index]
-            newProject.startDate = req.body.startDates[index]
-            newProject.endDate = req.body.endDates[index]
-            newProject.jobDescription = req.body.jobDescriptions[index]
-            workExperiences.push(newProject)
+            newJob.jobTitle = element
+            newJob.companyName = req.body.companyNames[index]
+            newJob.startDate = req.body.startDates[index]
+            newJob.endDate = req.body.endDates[index]
+            newJob.jobDescription = req.body.jobDescriptions[index]
+            workExperiences.push(newJob)
         });
         if (workExperiences.length !== 0) resumeFields.workExperiences = workExperiences;
 
@@ -156,23 +157,23 @@ router.get("/all", (req, res) => {
 router.get(
     "/",
     passport.authenticate("jwt", {
-      session: false
+        session: false
     }),
     (req, res) => {
-      const errors = {};
-      Resume.findOne({
-        user: req.user.id
-      })
-        .then(resume => {
-          if (!resume) {
-            errors.noResume = "There is no resume for this user!";
-            return res.status(404).json(errors);
-          }
-          res.json(resume);
-        })
-        .catch(err => res.status(404).json(err));
+        const errors = {};
+        Resume.findOne({
+                user: req.user.id
+            })
+            .then(resume => {
+                if (!resume) {
+                    errors.noResume = "There is no resume for this user!";
+                    return res.status(404).json(errors);
+                }
+                res.json(resume);
+            })
+            .catch(err => res.status(404).json(err));
     }
-  );
+);
 
 // @route   GET api/resume/user/:user_id
 // @desc   get resume by user_id
@@ -202,7 +203,7 @@ router.get("/user/:user_id", (req, res) => {
 router.get("/filter/language/:language", (req, res) => {
     const errors = {};
     Resume.find({
-            "programmingLanguages.language" : req.params.language
+            "programmingLanguages.language": req.params.language
         })
         .then(resumes => {
             if (!resumes) {
@@ -224,7 +225,7 @@ router.get("/filter/language/:language", (req, res) => {
 router.get("/filter/devrole/:role", (req, res) => {
     const errors = {};
     Resume.find({
-            "devRoles.role" : req.params.role
+            "devRoles.role": req.params.role
         })
         .then(resumes => {
             if (!resumes) {
@@ -246,7 +247,7 @@ router.get("/filter/devrole/:role", (req, res) => {
 router.get("/filter/frameworks/:framework", (req, res) => {
     const errors = {};
     Resume.find({
-            "frameworks.framework" : req.params.framework
+            "frameworks.framework": req.params.framework
         })
         .then(resumes => {
             if (!resumes) {
@@ -268,7 +269,7 @@ router.get("/filter/frameworks/:framework", (req, res) => {
 router.get("/filter/techskills/:skill", (req, res) => {
     const errors = {};
     Resume.find({
-            "techSkills.skill" : req.params.skill
+            "techSkills.skill": req.params.skill
         })
         .then(resumes => {
             if (!resumes) {
