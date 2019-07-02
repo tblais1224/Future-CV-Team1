@@ -65,60 +65,49 @@ const ResumeSchema = new Schema({
     },
     education: [{
         schoolName: {
-            type: String,
-            required: true
+            type: String
         },
         //bachelors, etc...
         diplomaAttained: {
-            type: String,
-            required: true
+            type: String
         },
         //computer science, etc...
         diplomaTitle: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     capstoneProjects: [{
         projectGithubURL: {
-            type: String,
-            required: true
+            type: String
         },
         projectDescription: {
-            type: String,
-            required: true
+            type: String
         },
         projectPrimaryLanguage: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     programmingLanguages: [{
         language: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     frameworks: [{
         framework: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     techSkills: [{
         skill: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     jobExperienceTime: {
-        type: Number,
-        required: true
+        type: Number
     },
     workExperiences: [{
         companyName:{
-            type: String,
-            required: true
+            type: String
         },
         startDate:{
             type: Date
@@ -129,12 +118,10 @@ const ResumeSchema = new Schema({
         },
         //maybe add a current option
         jobTitle: {
-            type: String,
-            required: true
+            type: String
         },
         jobDescription: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     date: {

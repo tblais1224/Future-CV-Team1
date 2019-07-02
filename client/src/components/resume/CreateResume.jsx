@@ -115,7 +115,7 @@ class Resume extends Component {
           projectGithubURLs: githubURLArr,
           projectTitles: titleArr,
           projectDescriptions: descriptionArr,
-          projectPrimaryLanguages: descriptionArr
+          projectPrimaryLanguages: languagesArr
         });
       }
       if (e.target.name === "languagesCount") {
@@ -177,7 +177,8 @@ class Resume extends Component {
       linkedInURL: this.state.linkedInURL,
       twitterURL: this.state.twitterURL,
       personalWebsiteURL: this.state.personalWebsiteURL,
-      roles: this.state.roles,
+      devRole: this.state.roles,
+      aboutMe: this.state.aboutMe,
       devSkillsAcquiredVia: this.state.devSkillsAcquiredVia,
       schoolNames: this.state.schoolNames,
       diplomasAttained: this.state.diplomasAttained,
@@ -193,7 +194,7 @@ class Resume extends Component {
       companyNames: this.state.companyNames,
       startDates: this.state.startDates,
       endDates: this.state.endDates,
-      jobDescription: this.state.jobDescriptions,
+      jobDescriptions: this.state.jobDescriptions,
       jobExperienceTime: this.state.jobExperienceTime
     };
     this.props.createResume(newResume, this.props.history);
@@ -209,20 +210,21 @@ class Resume extends Component {
     const newFramework = [];
     const newTechSkill = [];
 
-//add education inputs
+    //add education inputs
     for (let i = 0; i < this.state.educationCount; i++) {
       let id = `${i}`
+      let key = `education${i}`
       newEducation.push(
-        <div className="newEducation-container border border-info p-2" id={"containerIndex" + i}>
+        <div className="newEducation-container border border-info p-2" key={key} id={"educationContainerIndex" + i}>
           <div className="form-group">
             <label htmlFor="inputSchoolName" className="col-sm-4 control-label">
               School Name
             </label>
             <div className="col-sm-10 ">
               <input
-                type="string"
+                type="text"
                 className={classnames("form-control", {
-                  "is-invalid": errors.schoolName
+                  "is-invalid": errors.schoolNames
                 })}
                 id={id}
                 name="schoolNames"
@@ -230,8 +232,8 @@ class Resume extends Component {
                 onChange={this.onChangeStateArray}
                 placeholder="School Name"
               />
-              {errors.schoolName && (
-                <div className="invalid-feedback">{errors.schoolName}</div>
+              {errors.schoolNames && (
+                <div className="invalid-feedback">{errors.schoolNames}</div>
               )}
             </div>
           </div>
@@ -246,16 +248,16 @@ class Resume extends Component {
               <input
                 type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.diplomaAttained
+                  "is-invalid": errors.diplomasAttained
                 })}
                 id={id}
                 name="diplomasAttained"
                 value={this.state.diplomasAttained[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="First Name"
+                placeholder="Type of Degree"
               />
-              {errors.diplomaAttained && (
-                <div className="invalid-feedback">{errors.diplomaAttained}</div>
+              {errors.diplomasAttained && (
+                <div className="invalid-feedback">{errors.diplomasAttained}</div>
               )}
             </div>
           </div>
@@ -270,7 +272,7 @@ class Resume extends Component {
               <input
                 type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.diplomaTitle
+                  "is-invalid": errors.diplomaTitles
                 })}
                 id={id}
                 name="diplomaTitles"
@@ -278,8 +280,8 @@ class Resume extends Component {
                 onChange={this.onChangeStateArray}
                 placeholder="Diploma Title"
               />
-              {errors.diplomaTitle && (
-                <div className="invalid-feedback">{errors.diplomaTitle}</div>
+              {errors.diplomaTitles && (
+                <div className="invalid-feedback">{errors.diplomaTitles}</div>
               )}
             </div>
           </div>
@@ -299,80 +301,105 @@ class Resume extends Component {
     //add project inputs
     for (let i = 0; i < this.state.projectCount; i++) {
       let id = `${i}`
+      let key = `project${i}`
       newProject.push(
-        <div className="newProject-container border border-info p-2" id={"containerIndex" + i}>
+        <div className="newProject-container border border-info p-2" key={key} id={"projectContainerIndex" + i}>
           <div className="form-group">
-            <label htmlFor="inputSchoolName" className="col-sm-4 control-label">
-              School Name
+            <label htmlFor="inputProjectTitle" className="col-sm-4 control-label">
+              Project Name
             </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.schoolName
+                  "is-invalid": errors.projectTitles
                 })}
                 id={id}
-                name="schoolNames"
-                value={this.state.schoolNames[i]}
+                name="projectTitles"
+                value={this.state.projectTitles[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="School Name"
+                placeholder="Project Name"
               />
-              {errors.schoolName && (
-                <div className="invalid-feedback">{errors.schoolName}</div>
+              {errors.projectTitles && (
+                <div className="invalid-feedback">{errors.projectTitles}</div>
               )}
             </div>
           </div>
           <div className="form-group">
             <label
-              htmlFor="inputDiplomaAttained"
+              htmlFor="inputGithubURL"
               className="col-sm-6 control-label"
             >
-              Diploma or Degree Attained I.e. "bachelor's"
+              Project Github URL
             </label>
             <div className="col-sm-10 ">
               <input
-                type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.diplomaAttained
+                  "is-invalid": errors.projectGithubURLs
                 })}
                 id={id}
-                name="diplomasAttained"
-                value={this.state.diplomasAttained[i]}
+                type="url"
+                name="projectGithubURLs"
+                value={this.state.projectGithubURLs[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="First Name"
+                placeholder="Github URL"
               />
-              {errors.diplomaAttained && (
-                <div className="invalid-feedback">{errors.diplomaAttained}</div>
+              {errors.projectGithubURLs && (
+                <div className="invalid-feedback">{errors.projectGithubURLs}</div>
               )}
             </div>
           </div>
           <div className="form-group">
             <label
-              htmlFor="inputDiplomaTitle"
+              htmlFor="inputProjectDescriptions"
               className="col-sm-10 control-label"
             >
-              Diploma / Degree Title
+              Project Descriptions
+            </label>
+            <div className="col-sm-10 ">
+              <textarea
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.projectDescriptions
+                })}
+                id={id}
+                name="projectDescriptions"
+                value={this.state.projectDescriptions[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Project Description"
+              />
+              {errors.projectDescriptions && (
+                <div className="invalid-feedback">{errors.projectDescriptions}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputProjectPrimaryLanguages"
+              className="col-sm-10 control-label"
+            >
+              Project Primary Languages <br /> (Please use this format ==> "C#,HTML,CSS" etc.)
             </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.diplomaTitle
+                  "is-invalid": errors.projectPrimaryLanguages
                 })}
                 id={id}
-                name="diplomaTitles"
-                value={this.state.diplomaTitles[i]}
+                name="projectPrimaryLanguages"
+                value={this.state.projectPrimaryLanguages[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="Diploma Title"
+                placeholder="Languages"
               />
-              {errors.diplomaTitle && (
-                <div className="invalid-feedback">{errors.diplomaTitle}</div>
+              {errors.projectPrimaryLanguages && (
+                <div className="invalid-feedback">{errors.projectPrimaryLanguages}</div>
               )}
             </div>
           </div>
           <button
             className="btn-sm btn-danger m-3"
-            name="educationCount"
+            name="projectCount"
             type="button"
             id={i}
             onClick={this.removeField}
@@ -386,80 +413,129 @@ class Resume extends Component {
     //add job inputs
     for (let i = 0; i < this.state.jobCount; i++) {
       let id = `${i}`
+      let key = `job${i}`
       newJob.push(
-        <div className="newJob-container border border-info p-2" id={"containerIndex" + i}>
+        <div className="newJob-container border border-info p-2" key={key} id={"jobContainerIndex" + i}>
           <div className="form-group">
-            <label htmlFor="inputSchoolName" className="col-sm-4 control-label">
-              School Name
+            <label htmlFor="inputJobTitle" className="col-sm-4 control-label">
+              Job Title
             </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.schoolName
+                  "is-invalid": errors.jobTitles
                 })}
                 id={id}
-                name="schoolNames"
-                value={this.state.schoolNames[i]}
+                name="jobTitles"
+                value={this.state.jobTitles[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="School Name"
+                placeholder="Job Title"
               />
-              {errors.schoolName && (
-                <div className="invalid-feedback">{errors.schoolName}</div>
+              {errors.jobTitles && (
+                <div className="invalid-feedback">{errors.jobTitles}</div>
               )}
             </div>
           </div>
           <div className="form-group">
             <label
-              htmlFor="inputDiplomaAttained"
+              htmlFor="inputCompanyName"
               className="col-sm-6 control-label"
             >
-              Diploma or Degree Attained I.e. "bachelor's"
+              Company Names
             </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
                 className={classnames("form-control", {
-                  "is-invalid": errors.diplomaAttained
+                  "is-invalid": errors.companyNames
                 })}
                 id={id}
-                name="diplomasAttained"
-                value={this.state.diplomasAttained[i]}
+                name="companyNames"
+                value={this.state.companyNames[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="First Name"
+                placeholder="Company Name"
               />
-              {errors.diplomaAttained && (
-                <div className="invalid-feedback">{errors.diplomaAttained}</div>
+              {errors.companyNames && (
+                <div className="invalid-feedback">{errors.companyNames}</div>
               )}
             </div>
           </div>
           <div className="form-group">
             <label
-              htmlFor="inputDiplomaTitle"
+              htmlFor="inputJobDescription"
+              className="col-sm-6 control-label"
+            >
+              Job Description
+            </label>
+            <div className="col-sm-10 ">
+              <textarea
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.jobDescriptions
+                })}
+                id={id}
+                name="jobDescriptions"
+                value={this.state.jobDescriptions[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="Job Description"
+              />
+              {errors.jobDescriptions && (
+                <div className="invalid-feedback">{errors.jobDescriptions}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputStartDate"
               className="col-sm-10 control-label"
             >
-              Diploma / Degree Title
+              Start Date
             </label>
             <div className="col-sm-10 ">
               <input
-                type="string"
+                type="date"
                 className={classnames("form-control", {
-                  "is-invalid": errors.diplomaTitle
+                  "is-invalid": errors.startDates
                 })}
                 id={id}
-                name="diplomaTitles"
-                value={this.state.diplomaTitles[i]}
+                name="startDates"
+                value={this.state.startDates[i]}
                 onChange={this.onChangeStateArray}
-                placeholder="Diploma Title"
+                placeholder="Start Date"
               />
-              {errors.diplomaTitle && (
-                <div className="invalid-feedback">{errors.diplomaTitle}</div>
+              {errors.startDates && (
+                <div className="invalid-feedback">{errors.startDates}</div>
+              )}
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="inputEndDate"
+              className="col-sm-10 control-label"
+            >
+              End Date
+            </label>
+            <div className="col-sm-10 ">
+              <input
+                type="date"
+                className={classnames("form-control", {
+                  "is-invalid": errors.endDates
+                })}
+                id={id}
+                name="endDates"
+                value={this.state.endDates[i]}
+                onChange={this.onChangeStateArray}
+                placeholder="end Date"
+              />
+              {errors.endDates && (
+                <div className="invalid-feedback">{errors.endDates}</div>
               )}
             </div>
           </div>
           <button
             className="btn-sm btn-danger m-3"
-            name="educationCount"
+            name="jobCount"
             type="button"
             id={i}
             onClick={this.removeField}
@@ -473,8 +549,9 @@ class Resume extends Component {
     //add languages inputs
     for (let i = 0; i < this.state.languageCount; i++) {
       let id = `${i}`
+      let key = `language${i}`
       newLanguage.push(
-        <div className="newLanguage-container border border-info p-2" id={"containerIndex" + i}>
+        <div className="newLanguage-container border border-info p-2" key={key} id={"languageContainerIndex" + i}>
           <div className="form-group">
             <div className="col-sm-10 ">
               <input
@@ -509,8 +586,9 @@ class Resume extends Component {
     //add frameworks inputs
     for (let i = 0; i < this.state.frameworkCount; i++) {
       let id = `${i}`
+      let key = `framework${i}`
       newFramework.push(
-        <div className="newFramework-container border border-info p-2" id={"containerIndex" + i}>
+        <div className="newFramework-container border border-info p-2" key={key} id={"frameworkContainerIndex" + i}>
           <div className="form-group">
             <div className="col-sm-10 ">
               <input
@@ -545,8 +623,9 @@ class Resume extends Component {
     //add techskills inputs
     for (let i = 0; i < this.state.techSkillCount; i++) {
       let id = `${i}`
+      let key = `tech${i}`
       newTechSkill.push(
-        <div className="newTechSkill-container border border-info p-2" id={"containerIndex" + i}>
+        <div className="newTechSkill-container border border-info p-2" key={key} id={"techSkillsContainerIndex" + i}>
           <div className="form-group">
             <div className="col-sm-10 ">
               <input
@@ -715,12 +794,12 @@ class Resume extends Component {
             </div>
           </div>
           <div className="form-group">
-            <label htmlFor="inputCellphone" className="col-sm-4 control-label">
+            <label htmlFor="inputCellphone" className="col-sm-8 control-label">
               Cell Phone Number
             </label>
             <div className="col-sm-10">
               <input
-                type="string"
+                type="tel"
                 autoComplete="tel"
                 className={classnames("form-control", {
                   "is-invalid": errors.cellphone
@@ -729,7 +808,7 @@ class Resume extends Component {
                 name="cellphone"
                 value={this.state.cellphone}
                 onChange={this.onChange}
-                placeholder="Zip Code"
+                placeholder="Phone Number"
               />
               {errors.cellphone && (
                 <div className="invalid-feedback">{errors.cellphone}</div>
@@ -751,7 +830,7 @@ class Resume extends Component {
                 name="email"
                 value={this.state.email}
                 onChange={this.onChange}
-                placeholder="Zip Code"
+                placeholder="Email"
               />
               {errors.email && (
                 <div className="invalid-feedback">{errors.email}</div>
@@ -891,30 +970,30 @@ class Resume extends Component {
                 cols="50"
                 type="select"
                 className={classnames("form-control", {
-                  "is-invalid": errors.roles
+                  "is-invalid": errors.devRole
                 })}
                 id="inputDevRoles"
-                name="devRoles"
+                name="roles"
                 value={this.state.roles}
                 onChange={this.onChange}
-                placeholder="Roles"
               >
-                <option>
+                <option value=''>Select...</option>
+                <option value="Software Engineer I">
                   Associate Engineer / Junior Engineer / Intern / Software
                   Engineer I
                 </option>
-                <option>Software Engineer / Software Engineer II</option>
-                <option>Senior Engineer / Software Engineer III</option>
-                <option>Principal Engineer / Software Engineer IV</option>
-                <option>Fellow / Software Engineer V</option>
+                <option value="Software Engineer II">Software Engineer / Software Engineer II</option>
+                <option value="Software Engineer III">Senior Engineer / Software Engineer III</option>
+                <option value="Software Engineer IV">Principal Engineer / Software Engineer IV</option>
+                <option value="Software Engineer V">Fellow / Software Engineer V</option>
               </Input>
-              {errors.aboutMe && (
-                <div className="invalid-feedback">{errors.aboutMe}</div>
+              {errors.devRole && (
+                <div className="invalid-feedback">{errors.devRole}</div>
               )}
             </FormGroup>
           </div>
           <div className="form-group">
-            <label htmlFor="inputJobExperienceTime" className="col-sm-4 control-label">
+            <label htmlFor="inputJobExperienceTime" className="col-sm-8 control-label">
               Number of Years Working as a Developer
             </label>
             <div className="col-sm-10">
@@ -947,7 +1026,29 @@ class Resume extends Component {
             >
               Add Another Education
             </button>
-            <br/>
+          </div>
+          <div className="form-group">
+            <label htmlFor="inputDevSkillsAcquiredVia" className="col-sm-8 control-label">
+              Developer Skills Acquired Via
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="string"
+                className={classnames("form-control", {
+                  "is-invalid": errors.devSkillsAcquiredVia
+                })}
+                id="inputDevSkillsAcquiredVia"
+                name="devSkillsAcquiredVia"
+                value={this.state.devSkillsAcquiredVia}
+                onChange={this.onChange}
+                placeholder="Developer Skills Acquired Via"
+              />
+              {errors.devSkillsAcquiredVia && (
+                <div className="invalid-feedback">{errors.devSkillsAcquiredVia}</div>
+              )}
+            </div>
+          </div>
+          <div>
             <Label htmlFor="inputProjects" className="col-sm-8 control-label">
               Projects:
             </Label>
@@ -960,7 +1061,9 @@ class Resume extends Component {
             >
               Add Another Project
             </button>
-            <br/>
+          </div>
+          <br />
+          <div>
             <Label htmlFor="inputWorkExperience" className="col-sm-8 control-label">
               Work Experience:
             </Label>
@@ -973,7 +1076,9 @@ class Resume extends Component {
             >
               Add Another Job
             </button>
-            <br/>
+          </div>
+          <br />
+          <div>
             <Label htmlFor="inputProgrammingLanguages" className="col-sm-8 control-label">
               Programming Languages:
             </Label>
@@ -986,7 +1091,9 @@ class Resume extends Component {
             >
               Add Another Programming Language
             </button>
-            <br/>
+          </div>
+          <br />
+          <div>
             <Label htmlFor="inputFrameworks" className="col-sm-8 control-label">
               Frameworks:
             </Label>
@@ -999,9 +1106,11 @@ class Resume extends Component {
             >
               Add Another Framework
             </button>
-            <br/>
+          </div>
+          <br />
+          <div>
             <Label htmlFor="inputTechSkills" className="col-sm-8 control-label">
-            Other Tech Skill I.e. "MongoDB":
+              Other Tech Skill I.e. "MongoDB":
             </Label>
             {newTechSkill}
             <button
