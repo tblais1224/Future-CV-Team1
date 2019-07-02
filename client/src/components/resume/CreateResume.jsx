@@ -66,13 +66,9 @@ class Resume extends Component {
     let name = e.target.name
     let idNum = parseInt(e.target.id)
     let array = [...this.state[name]]; // create the copy of state array
-
-    if (array[idNum]) {
-      array[idNum] = e.target.value
-    } else {
-      array.push(e.target.value)
-    }
+    array[idNum] = e.target.value
     this.setState({ [name]: array })
+    console.log(idNum,"    ", this.state[name])
   }
 
   addToCounter(e) {
