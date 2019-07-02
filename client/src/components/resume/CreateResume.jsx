@@ -476,9 +476,6 @@ class Resume extends Component {
       newLanguage.push(
         <div className="newLanguage-container border border-info p-2" id={"containerIndex" + i}>
           <div className="form-group">
-            <label htmlFor="inputProgrammingLanguages" className="col-sm-4 control-label">
-              Programming Languages
-            </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
@@ -515,9 +512,6 @@ class Resume extends Component {
       newFramework.push(
         <div className="newFramework-container border border-info p-2" id={"containerIndex" + i}>
           <div className="form-group">
-            <label htmlFor="inputFramework" className="col-sm-4 control-label">
-              School Name
-            </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
@@ -554,9 +548,6 @@ class Resume extends Component {
       newTechSkill.push(
         <div className="newTechSkill-container border border-info p-2" id={"containerIndex" + i}>
           <div className="form-group">
-            <label htmlFor="inputTechSkills" className="col-sm-4 control-label">
-              Other Tech Skill I.e. "MongoDB"
-            </label>
             <div className="col-sm-10 ">
               <input
                 type="string"
@@ -900,13 +891,13 @@ class Resume extends Component {
                 cols="50"
                 type="select"
                 className={classnames("form-control", {
-                  "is-invalid": errors.aboutMe
+                  "is-invalid": errors.roles
                 })}
-                id="inputAboutMe"
-                name="aboutMe"
-                value={this.state.aboutMe}
+                id="inputDevRoles"
+                name="devRoles"
+                value={this.state.roles}
                 onChange={this.onChange}
-                placeholder="Bio"
+                placeholder="Roles"
               >
                 <option>
                   Associate Engineer / Junior Engineer / Intern / Software
@@ -923,7 +914,7 @@ class Resume extends Component {
             </FormGroup>
           </div>
           <div className="form-group">
-            <label htmlFor="inputEmail" className="col-sm-4 control-label">
+            <label htmlFor="inputJobExperienceTime" className="col-sm-4 control-label">
               Number of Years Working as a Developer
             </label>
             <div className="col-sm-10">
@@ -944,7 +935,7 @@ class Resume extends Component {
             </div>
           </div>
           <div>
-            <Label htmlFor="inputAboutMe" className="col-sm-8 control-label">
+            <Label htmlFor="inputEducation" className="col-sm-8 control-label">
               Education:
             </Label>
             {newEducation}
@@ -956,6 +947,10 @@ class Resume extends Component {
             >
               Add Another Education
             </button>
+            <br/>
+            <Label htmlFor="inputProjects" className="col-sm-8 control-label">
+              Projects:
+            </Label>
             {newProject}
             <button
               className="btn-sm btn-success m-3"
@@ -965,6 +960,10 @@ class Resume extends Component {
             >
               Add Another Project
             </button>
+            <br/>
+            <Label htmlFor="inputWorkExperience" className="col-sm-8 control-label">
+              Work Experience:
+            </Label>
             {newJob}
             <button
               className="btn-sm btn-success m-3"
@@ -974,6 +973,10 @@ class Resume extends Component {
             >
               Add Another Job
             </button>
+            <br/>
+            <Label htmlFor="inputProgrammingLanguages" className="col-sm-8 control-label">
+              Programming Languages:
+            </Label>
             {newLanguage}
             <button
               className="btn-sm btn-success m-3"
@@ -983,6 +986,10 @@ class Resume extends Component {
             >
               Add Another Programming Language
             </button>
+            <br/>
+            <Label htmlFor="inputFrameworks" className="col-sm-8 control-label">
+              Frameworks:
+            </Label>
             {newFramework}
             <button
               className="btn-sm btn-success m-3"
@@ -992,6 +999,10 @@ class Resume extends Component {
             >
               Add Another Framework
             </button>
+            <br/>
+            <Label htmlFor="inputTechSkills" className="col-sm-8 control-label">
+            Other Tech Skill I.e. "MongoDB":
+            </Label>
             {newTechSkill}
             <button
               className="btn-sm btn-success m-3"
